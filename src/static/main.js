@@ -62,7 +62,7 @@ function startTask() {
     .then(res => res.json())
     .then(data => {
         const taskId = data.task_id;
-        const shortId = data.short_task_id;
+        const shortId = data.short_id;
         addTaskToUI(taskId, shortId, questionText);
         subscribeToTask(taskId);
     });
