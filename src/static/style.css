@@ -248,7 +248,7 @@ footer {
     max-height: 300px;
     position: relative;
     width: 100%;
-    margin: 0px auto;
+    margin: 0 auto;
     border-radius: 20px;
     overflow: hidden;
     background-color: white;
@@ -433,7 +433,7 @@ footer {
 
 .result.show {
     max-height: 500px;
-    padding: 0px;
+    padding: 0;
     margin-top: 0.5rem;
     border-left: 3px solid var(--accent-color);
     display: block;
@@ -592,7 +592,7 @@ footer {
 .result-actions {
     display: flex;
     gap: 0.5rem;
-    margin: 10px 0px;
+    margin: 10px 0;
 }
 
 .result-actions button {
@@ -885,4 +885,36 @@ footer {
   z-index: 9999;
   box-shadow: 0 0 0 3px #ffd700;
   border-radius: 20px;
+}
+
+.task-type {
+    font-size: 12px;
+    color: var(--text-color);
+    background-color: var(--light-color);
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+
+.task-type-selector {
+    margin-bottom: 1rem;
+}
+
+.task-type-selector select {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: none;
+    background-color: var(--border-color);
+    color: var(--text-color);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/*.task-type-selector select:focus {*/
+/*}*/
+
+.backend-demo-header {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
