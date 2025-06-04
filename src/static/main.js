@@ -30,6 +30,7 @@ autoLogin().then(() => {})
 
 const sidebar = document.getElementById('sidebar');
 const sidebarContent = document.getElementById('sidebar-content');
+const baseContainer = document.getElementById('base-container');
 
 document.addEventListener('DOMContentLoaded', function() {
     const toggleBtn = document.getElementById('toggle-btn');
@@ -307,9 +308,11 @@ function toggleSidebar() {
 
     if (currentStateCollapsed) {
         sidebar.classList.remove('collapsed');
+        baseContainer.classList.remove('collapsed');
         localStorage.setItem('currentState', 'not-collapsed');
     } else {
         sidebar.classList.add('collapsed');
+        baseContainer.classList.add('collapsed');
         localStorage.setItem('currentState', 'collapsed');
     }
     updateSidebarItemsVisibility();
@@ -358,6 +361,56 @@ function autoResize(textarea) {
     }
 }
 
+function openFeedbackModal() {
+    document.getElementById('feedbackModal').style.display = 'block';
+    document.getElementById('modalOverlay').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeFeedbackModal() {
+    document.getElementById('feedbackModal').style.display = 'none';
+    document.getElementById('modalOverlay').style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+async function submitFeedback() {
+    const text = document.getElementById('feedbackText').value.trim();
+    const contact = document.getElementById('feedbackContact').value.trim();
+
+    if (!text) {
+        alert('Пожалуйста, введите ваше сообщение');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/v1/feedback`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text, contact }),
+        });
+
+        if (response.ok) {
+            alert('Спасибо за вашу обратную связь!');
+            closeFeedbackModal();
+            document.getElementById('feedbackText').value = '';
+            document.getElementById('feedbackContact').value = '';
+        } else {
+            throw new Error('Ошибка при отправке');
+        }
+    } catch (error) {
+        alert('Произошла ошибка при отправке. Попробуйте позже или напишите нам на почту.');
+        console.error('Feedback submission error:', error);
+    }
+}
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeFeedbackModal();
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     const themeIcon = document.getElementById('theme-icon');
@@ -374,9 +427,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (savedSidebarState === 'collapsed') {
         sidebar.classList.add('collapsed');
+        baseContainer.classList.add('collapsed');
         localStorage.setItem('currentState', 'collapsed');
     } else {
         sidebar.classList.remove('collapsed');
+        baseContainer.classList.remove('collapsed');
         localStorage.setItem('currentState', 'not-collapsed');
     }
     updateSidebarItemsVisibility();
