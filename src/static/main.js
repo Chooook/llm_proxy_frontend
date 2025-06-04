@@ -1,4 +1,9 @@
-﻿let BACKEND_URL;
+﻿const converter = new showdown.Converter({
+    tables: true,
+    strikethrough: true,
+    simplifiedAutoLink: true
+});
+let BACKEND_URL;
 
 function autoLogin() {
   try {
@@ -220,11 +225,12 @@ function updateStatus(taskId, status, result = '') {
             statusEl.classList.add('status-error');
             if (loadingGif) loadingGif.remove();
         }
+        const result_md = converter.makeHtml(result.trim());
 
         if (result) {
             try {
                 resultEl.innerHTML = `
-<div class="result-text">${result.trim()}</div>
+<div class="result-text">${result_md}</div>
 <div class="result-actions">
     <button class="like-btn" onclick="handleFeedback('${taskId}', 'like', this)">👍</button>
     <button class="dislike-btn" onclick="handleFeedback('${taskId}', 'dislike', this)">👎</button>
