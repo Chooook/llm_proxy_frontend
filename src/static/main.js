@@ -495,5 +495,6 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => {
         console.error('Error loading tasks:', error);
         document.getElementById('emptyState').style.display = 'block';
+        location.reload();
     });
 });
