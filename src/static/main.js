@@ -1,10 +1,9 @@
-﻿// Получаем адрес бэкенда из .env по route из текущего приложения flask
-let BACKEND_URL;
+﻿let BACKEND_URL;
 
 function autoLogin() {
   try {
     return fetch('/config').then(res => res.json()).then(config => {
-        BACKEND_URL = config.BACKEND_URL;
+        BACKEND_URL = config['BACKEND_URL'];
     })
     .then(() => {
         return fetch(`${BACKEND_URL}/`, {
@@ -22,7 +21,7 @@ function autoLogin() {
     console.error('Ошибка сети:', err);
   }
 }
-autoLogin().then(r => {})
+autoLogin().then(() => {})
 
 const sidebar = document.getElementById('sidebar');
 const sidebarContent = document.getElementById('sidebar-content');
@@ -41,7 +40,7 @@ textarea.addEventListener(
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
             setTimeout(() => {
-                textarea.value = textarea.value.replace(/\n$/, ""); // Удаляем добавленный перенос
+                textarea.value = textarea.value.replace(/\n$/, "");
             }, 0);
             startTask();
         }
@@ -51,34 +50,59 @@ textarea.addEventListener(
 function startTask() {
     const inputText = document.getElementById('inputParam');
     const questionText = inputText.value;
+    const taskType = document.getElementById('taskType').value;
+
+    if (!questionText.trim()) {
+        alert('Пожалуйста, введите вопрос');
+        return;
+    }
+
     document.getElementById('inputParam').value = '';
     autoResize(inputText);
+
+    let task = {
+        prompt: questionText,
+        task_type: taskType
+    };
+
     fetch(`${BACKEND_URL}/api/v1/enqueue`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
-        body: JSON.stringify({ prompt: questionText })
+        body: JSON.stringify(task)
     })
     .then(res => res.json())
     .then(data => {
-        const taskId = data.task_id;
-        const shortId = data.short_id;
-        addTaskToUI(taskId, shortId, questionText);
-        subscribeToTask(taskId);
+        task['task_id'] = data['task_id'];
+        task['short_task_id'] = data['short_task_id'];
+        addTaskToUI(task);
+        subscribeToTask(task['task_id']);
+    })
+    .catch(error => {
+        console.error('Ошибка при отправке запроса:', error);
     });
 }
 
-function addTaskToUI(taskId, shortId, questionText) {
-    // Hide empty state
+function addTaskToUI(task) {
     const emptyState = document.getElementById('emptyState');
     if (emptyState) emptyState.style.display = 'none';
 
+    const taskTypeNames = {
+        'generate_pm': 'Помощник ЦК PM',
+        'generate_spc': 'Помощник ЦК СПК',
+        'generate_oapso': 'Помощник ОАПСО',
+        'generate_local': 'Локальная генерация'
+    };
+    const taskTypeName = taskTypeNames[task['task_type']];
+    let taskId = task['task_id'];
+
     const taskDiv = document.createElement('div');
     taskDiv.className = 'backend-response';
-    taskDiv.id = `${taskId}`;
+    taskDiv.id = taskId;
     taskDiv.innerHTML = `
 <div class="task-header">
-    <span class="task-title">Вопрос: ${questionText}</span>
+    <span class="task-title">Вопрос: ${task['prompt']}</span>
+    <span class="task-type">Тип: ${taskTypeName}</span>
 </div>
 <div class="status status-waiting">
     <span class="status-text">Статус: ожидание</span>
@@ -90,13 +114,12 @@ function addTaskToUI(taskId, shortId, questionText) {
     <span class="icon">−</span>
     </button>
 </div>`;
-    addSidebarItem(taskId, shortId, questionText)
+    addSidebarItem(task)
     const container = document.getElementById('tasks');
     container.insertBefore(taskDiv, container.firstChild);
 
-    // Deactivate all other tasks
-    document.querySelectorAll('.backend-response').forEach(task => {
-        task.classList.remove('active');
+    document.querySelectorAll('.backend-response').forEach(taskEl => {
+        taskEl.classList.remove('active');
     });
     taskDiv.classList.add('active');
 
@@ -110,19 +133,21 @@ function addTaskToUI(taskId, shortId, questionText) {
     });
 }
 
-function addSidebarItem(taskId, shortId, text) {
+function addSidebarItem(task) {
     const item = document.createElement('div');
+    let prompt = task['prompt'];
     item.className = 'sidebar-item';
-    item.dataset.fullText = text;
-    item.dataset.itemNumber = taskId;
+    item.dataset.fullText = prompt;
+    item.dataset.itemNumber = task['task_id'];
+    item.dataset.task_type = task['task_type'];
 
     const numberSpan = document.createElement('span');
     numberSpan.className = 'item-number';
-    numberSpan.textContent = shortId;
+    numberSpan.textContent = task['short_task_id'];
 
     const textSpan = document.createElement('span');
     textSpan.className = 'sidebar-text';
-    textSpan.textContent = text.length > 20 ? text.substring(0, 20) + '...' : text;
+    textSpan.textContent = prompt.length > 20 ? prompt.substring(0, 20) + '...' : prompt;
 
     item.appendChild(numberSpan);
     item.appendChild(textSpan);
@@ -133,7 +158,7 @@ function addSidebarItem(taskId, shortId, text) {
         });
 
         this.classList.add('active');
-        const taskEl = document.getElementById(`${taskId}`);
+        const taskEl = document.getElementById(`${task['task_id']}`);
         if (taskEl) {
             taskEl.classList.add('active');
         }
@@ -147,7 +172,7 @@ function addSidebarItem(taskId, shortId, text) {
     item.scrollIntoView({behavior: "smooth", block: "nearest"});
     updateSidebarItemsVisibility();
 
-    return item; // Возвращаем созданный элемент
+    return item;
 }
 
 function updateSidebarItemsVisibility() {
@@ -289,7 +314,7 @@ function handleFeedback(taskId, type, button) {
     [...parent.children].forEach(btn => btn.classList.remove('active'));
     button.classList.add('active');
 
-    // При желании можно отправить feedback на бэкенд:
+    // При желании можно отправить feedback на backend:
    /*
     fetch(`${BACKEND_URL}/api/v1/feedback/${taskId}`, {
         method: 'POST',
@@ -350,10 +375,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     updateSidebarItemsVisibility();
 
-
-
     fetch('/config').then(res => res.json()).then(config => {
-        BACKEND_URL = config.BACKEND_URL;
+        BACKEND_URL = config['BACKEND_URL'];
         return BACKEND_URL;
     })
     .then(() => {
@@ -361,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(response => {
         if (!response.ok) throw new Error('Network error');
-        if (response.status === 204) return []; // No content
+        if (response.status === 204) return [];
         return response.json();
     })
     .then(tasks => {
@@ -370,34 +393,35 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Переменная для хранения последней добавленной задачи
         let lastAddedItem = null;
 
-        // Обрабатываем задачи в обратном порядке (чтобы последняя была первой в списке)
         tasks.forEach(task => {
             try {
-                const prompt = task.prompt;
-                addTaskToUI(task.task_id, task.short_task_id, prompt);
+                const taskId = task['task_id'];
+                addTaskToUI(task);
 
-                // Сохраняем ссылку на последний добавленный элемент
-                lastAddedItem = document.querySelector(`.sidebar-item[data-item-number="${task.task_id}"]`);
+                lastAddedItem = document.querySelector(`.sidebar-item[data-item-number="${taskId}"]`);
 
-                // Update status and sidebar
                 const status = task.status === 'completed' ? 'выполнено' :
-                             task.status === 'failed' ? 'ошибка' : 'ожидание';
-                updateStatus(task.task_id, status, task.result || task.error);
+                    task.status === 'failed' ? 'ошибка' : 'ожидание';
+                let result
+                if (task.status === 'completed') {
+                    result = task.result;
+                } else {
+                    result = task.error;
+                }
+                updateStatus(taskId, status, result);
 
-                const sidebarItem = document.querySelector(`.sidebar-item[data-item-number="${task.task_id}"]`);
+                const sidebarItem = document.querySelector(`.sidebar-item[data-item-number="${taskId}"]`);
                 if (status === 'выполнено') sidebarItem.classList.add('completed');
                 if (status === 'ошибка') sidebarItem.classList.add('error');
 
-                if (status === 'ожидание') subscribeToTask(task.task_id);
+                if (status === 'ожидание') subscribeToTask(taskId);
             } catch (e) {
                 console.error('Error loading task:', e);
             }
         });
 
-        // Активируем последнюю задачу
         if (lastAddedItem) {
             lastAddedItem.classList.add('active');
             const taskId = lastAddedItem.dataset.itemNumber;
