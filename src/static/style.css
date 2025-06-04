@@ -88,10 +88,9 @@ header {
     font-weight: 700;
 }
 
-.theme-toggle {
+.theme-toggle, .intro-btn {
     position: absolute;
     right: 20px;
-    top: 30%;
     transform: translateY(-50%);
     cursor: pointer;
     font-size: 1.2rem;
@@ -104,20 +103,12 @@ header {
     justify-content: center;
 }
 
+.theme-toggle {
+    top: 30%;
+}
+
 .intro-btn {
-    position: absolute;
-    right: 20px;
     top: 70%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 1.2rem;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .categories {
