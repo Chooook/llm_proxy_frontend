@@ -41,7 +41,17 @@
 
         <div class="container main-content">
             <div class="backend-demo">
-                <h1>Поиск по базе знаний</h1>
+                <div class="backend-demo-header">
+                    <h1>Поиск по базе знаний</h1>
+                    <div class="task-type-selector">
+                        <select id="taskType">
+                            <option value="generate_pm">Помощник ЦК PM</option>
+                            <option value="generate_spc">Помощник ЦК СПК</option>
+                            <option value="generate_oapso">Помощник ОАПСО</option>
+                            <option value="generate_local">Локальная генерация</option>
+                        </select>
+                    </div>
+                </div>
                 <div data-tooltip="Тут вы можете ввести свой вопрос, а для отправки нажать Enter или 🔍️"
                      class="search-wrapper">
                     <div class="textarea-wrapper">
