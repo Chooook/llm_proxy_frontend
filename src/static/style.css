@@ -12,7 +12,7 @@
     --border-color: #f3f3f3;
     --status-done-color: #28a745;
     --status-done-background-color: rgba(40, 167, 69, 0.1);
-    --status-error-color: #dc3545;
+    --status-error-color: #ff3549;
     --status-error-background-color: rgba(220, 53, 69, 0.1);
 }
 
@@ -379,10 +379,14 @@ footer {
     transition: all 0.3s ease;
     background-color: var(--light-color);
     border-radius: 20px;
-    padding: 0 10px;
+    padding: 0 2rem;
     white-space: pre-wrap;
     word-wrap: break-word;
     color: var(--text-color);
+}
+
+a {
+    color: var(--accent-color);
 }
 
 .result.show {
