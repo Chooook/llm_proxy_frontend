@@ -239,7 +239,7 @@ function updateStatus(taskId, status, result = '') {
 <div class="result-actions">
     <button class="like-btn" onclick="handleFeedback('${taskId}', 'like', this)">👍</button>
     <button class="dislike-btn" onclick="handleFeedback('${taskId}', 'dislike', this)">👎</button>
-    <button class="copy-btn" onclick="copyToClipboard('${taskId}', this)">📋</button>
+    <button class="copy-btn" onclick="fallbackCopyToClipboard('${taskId}', this)">📋</button>
 </div>`;
             } catch (e) {
                 resultEl.textContent = result;
@@ -349,6 +349,32 @@ function copyToClipboard(taskId, button) {
         .catch(err => {
             console.error('Ошибка копирования:', err);
         });
+}
+
+function fallbackCopyToClipboard(taskId, button) {
+    const text = document.querySelector(`#result-${taskId} .result-text`).textContent;
+    let textArea = document.createElement("textarea");
+    textArea.value = text;
+
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+        document.execCommand('copy');
+    } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
+    button.textContent = '✅';
+    setTimeout(() => {
+        button.textContent = '📋';
+    }, 1500);
 }
 
 function autoResize(textarea) {
