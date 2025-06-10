@@ -48,14 +48,14 @@ body {
 }
 
 a {
-    color: #90cdf4;
+    color: #5cc6ff;
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.2s;
 }
 
 a:hover {
-    color: #63b3ed;
+    color: #2baaff;
     text-decoration: underline;
 }
 
