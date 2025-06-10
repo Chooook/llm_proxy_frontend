@@ -1,0 +1,212 @@
+header {
+    background: var(--header-bg);
+    color: white;
+    padding: 0.5rem 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 20px;
+    gap: 20px;
+}
+
+.header-logo {
+    flex-shrink: 0;
+}
+
+.header-logo img {
+    height: 60px;
+    width: auto;
+}
+
+.header-text-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+header.initial-header {
+    height: 200px;
+    transition: all 0.5s ease;
+}
+
+header.initial-header .header-logo img {
+    height: 120px;
+    transition: all 0.5s ease;
+}
+
+header.initial-header .logo-text {
+    font-size: 2.4rem;
+    transition: all 0.5s ease;
+}
+
+header.initial-header .tagline {
+    font-size: 1.8rem;
+    transition: all 0.5s ease;
+}
+
+header.initial-header .theme-toggle,
+header.initial-header .intro-btn {
+    width: 64px;
+    height: 64px;
+    font-size: 2.4rem;
+    transition: all 0.5s ease;
+}
+
+header.initial-header .theme-toggle {
+    top: 25%;
+}
+
+header.initial-header .intro-btn {
+    top: 75%;
+}
+
+body.header-expanded {
+    padding-top: 200px;
+    transition: padding-top 0.5s ease;
+}
+
+header {
+    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
+}
+
+header.initial-header {
+    height: 200px;
+}
+
+header.initial-header .header-logo img {
+    height: 120px;
+    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
+}
+
+header.initial-header .logo-text {
+    font-size: 2.4rem;
+    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
+}
+
+header.initial-header .tagline {
+    font-size: 1.8rem;
+    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
+}
+
+header.initial-header .theme-toggle,
+header.initial-header .intro-btn {
+    width: 64px;
+    height: 64px;
+    font-size: 2.4rem;
+    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
+}
+
+header.initial-header .theme-toggle {
+    top: 25%;
+}
+
+header.initial-header .intro-btn {
+    top: 75%;
+}
+
+body.initial-header {
+    padding-top: 200px;
+    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
+}
+
+body.initial-header #sidebar {
+    top: 200px;
+    height: calc(100vh - 200px);
+    transition: top 0.3s cubic-bezier(0.68, -0.3, 0.5, 1),
+                height 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
+}
+
+header.small-header {
+    height: 100px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header.small-header .header-logo img {
+    height: 60px;
+}
+
+header.small-header .logo-text {
+    font-size: 1.2rem;
+}
+
+header.small-header .tagline {
+    font-size: 0.9rem;
+}
+
+header.small-header .theme-toggle,
+header.small-header .intro-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+}
+
+header.small-header .theme-toggle {
+    top: 30%;
+}
+
+header.small-header .intro-btn {
+    top: 70%;
+}
+
+.logo-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: white;
+    text-align: left;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.theme-toggle, .intro-btn {
+    position: absolute;
+    right: 20px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.theme-toggle:hover, .intro-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.theme-toggle {
+    top: 30%;
+}
+
+.intro-btn {
+    top: 70%;
+}
