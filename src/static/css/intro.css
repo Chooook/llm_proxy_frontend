@@ -1,0 +1,28 @@
+.custom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+}
+
+.custom-tooltip {
+ position: absolute;
+  background: #fff;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 9998;
+  max-width: 250px;
+  font-size: 14px;
+}
+
+.highlight-element {
+  position: relative;
+  z-index: 9999;
+  box-shadow: 0 0 0 3px #ffd700;
+  border-radius: 20px;
+}
