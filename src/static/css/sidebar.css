@@ -1,0 +1,141 @@
+#sidebar {
+    width: 250px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    overflow-y: auto;
+    border-right: 1px solid var(--border-color);
+    height: calc(100vh - 100px);
+    position: fixed;
+    top: 100px;
+    left: 0;
+    z-index: 900;
+}
+
+#sidebar.collapsed {
+    width: 80px;
+}
+
+#sidebar-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--light-color);
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#sidebar.collapsed #sidebar-header {
+    justify-content: center;
+}
+
+#sidebar-content {
+    padding: 10px;
+    overflow-y: auto;
+    max-height: calc(100% - 80px);
+}
+
+.sidebar-item {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: var(--light-color);
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-item:hover {
+    background-color: var(--border-color);
+    border-left: 3px solid var(--accent-color);
+}
+
+#add-item-btn {
+    width: calc(100% - 20px);
+    margin: 10px;
+    padding: 10px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#add-item-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.item-number {
+    display: none;
+    font-weight: bold;
+    text-align: center;
+}
+
+.collapsed .item-number {
+    display: block;
+}
+
+.collapsed .sidebar-text {
+    display: none;
+}
+
+.sidebar-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.collapsed .sidebar-item {
+    justify-content: center;
+    padding: 10px 5px;
+}
+
+.sidebar-item .sidebar-text {
+    display: block;
+    margin-left: 5px;
+}
+
+.collapsed #add-item-btn {
+    width: 30px;
+    height: 30px;
+    margin: 10px auto;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-item.active {
+    background-color: var(--accent-color);
+    color: white;
+    border-left-color: var(--secondary-color);
+}
+
+.sidebar-item.completed {
+    border-left: 3px solid var(--status-done-color);
+}
+
+.sidebar-item.error {
+    border-left: 3px solid var(--status-error-color);
+}
+
+.sidebar-item .status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+.sidebar-item.completed .status-indicator {
+    background: var(--status-done-background-color);
+}
+
+.sidebar-item.error .status-indicator {
+    background: var(--status-error-color);
+}
