@@ -1,0 +1,45 @@
+.categories {
+    position: relative;
+    max-width: 1200px;
+    min-width: calc(900px + 1.5rem);
+    margin: 3rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.category-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--accent-color);
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.category-icon {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.category-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.category-desc {
+    color: var(--text-color);
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
