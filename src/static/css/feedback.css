@@ -29,20 +29,25 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #2d3748;
+    background: var(--bg-color);
     padding: 2rem;
-    border-radius: 8px;
     z-index: 1001;
     width: 80%;
     max-width: 1200px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     margin: 0 auto;
+    border-radius: 20px;
+    transition: all 0.05s ease;
+}
+
+.feedback-modal * {
+    transition: all 0.05s ease;
 }
 
 .feedback-modal h3 {
     margin-top: 0;
     margin-bottom: 1.5rem;
-    color: white;
+    color: var(--text-color);
 }
 
 .feedback-modal textarea {
@@ -50,22 +55,22 @@
     min-height: 150px;
     margin-bottom: 1rem;
     padding: 0.75rem;
-    border-radius: 6px;
-    border: 1px solid #4a5568;
-    background: #1a202c;
-    color: white;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    color: #212529;;
     font-family: inherit;
     resize: vertical;
+    background: #f5f5f5;
 }
 
 .feedback-modal input {
+    color: #212529;;
     width: 100%;
     margin-bottom: 1.5rem;
     padding: 0.75rem;
-    border-radius: 6px;
-    border: 1px solid #4a5568;
-    background: #1a202c;
-    color: white;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: #f5f5f5;
 }
 
 .feedback-modal .buttons {
@@ -75,26 +80,28 @@
 }
 
 .feedback-modal button {
-    background: #4299e1;
-    color: white;
+    background: var(--success-color);
+    border-radius: 20px;
+    color: var(--text-color);
     border: none;
     padding: 0.75rem 1.5rem;
-    border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
     transition: background 0.2s;
 }
 
 .feedback-modal button:hover {
-    background: #3182ce;
+    background: var(--status-done-color);
 }
 
 .feedback-modal button.cancel {
-    background: #718096;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .feedback-modal button.cancel:hover {
-    background: #4a5568;
+    background: var(--status-error-background-color);
 }
 
 .feedback-modal .mail-link {
