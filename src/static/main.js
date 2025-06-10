@@ -5,6 +5,16 @@
 });
 let BACKEND_URL;
 
+const taskTypeNames = {
+    'generate_pm': 'Помощник ЦК PM',
+    'generate_spc': 'Помощник ЦК СПК',
+    'generate_oapso': 'Помощник ОАПСО',
+    'generate_local': 'Локальная генерация',
+    'dummy': 'Перемешать буквы'
+};
+// TODO: генерировать типы из этой переменной, получать можно с backend (добавить endpoint, который читает конфиг)
+// TODO: вытащить все что выполняется при инициализации в отдельные функции и в отдельный модуль
+
 function autoLogin() {
   try {
     return fetch('/config').then(res => res.json()).then(config => {
@@ -93,17 +103,11 @@ function addTaskToUI(task) {
     const emptyState = document.getElementById('emptyState');
     if (emptyState) emptyState.style.display = 'none';
 
-    const taskTypeNames = {
-        'generate_pm': 'Помощник ЦК PM',
-        'generate_spc': 'Помощник ЦК СПК',
-        'generate_oapso': 'Помощник ОАПСО',
-        'generate_local': 'Локальная генерация'
-    };
     const taskTypeName = taskTypeNames[task['task_type']];
     let taskId = task['task_id'];
 
     const taskDiv = document.createElement('div');
-    taskDiv.className = 'backend-response';
+    taskDiv.className = 'result-container';
     taskDiv.id = taskId;
     taskDiv.innerHTML = `
 <div class="task-header">
@@ -124,7 +128,7 @@ function addTaskToUI(task) {
     const container = document.getElementById('tasks');
     container.insertBefore(taskDiv, container.firstChild);
 
-    document.querySelectorAll('.backend-response').forEach(taskEl => {
+    document.querySelectorAll('.result-container').forEach(taskEl => {
         taskEl.classList.remove('active');
     });
     taskDiv.classList.add('active');
@@ -159,7 +163,7 @@ function addSidebarItem(task) {
     item.appendChild(textSpan);
 
     item.addEventListener('click', function() {
-        document.querySelectorAll('.sidebar-item, .backend-response').forEach(el => {
+        document.querySelectorAll('.sidebar-item, .result-container').forEach(el => {
             el.classList.remove('active');
         });
 
@@ -169,7 +173,7 @@ function addSidebarItem(task) {
             taskEl.classList.add('active');
         }
     });
-    document.querySelectorAll('.sidebar-item, .backend-response').forEach(el => {
+    document.querySelectorAll('.sidebar-item, .result-container').forEach(el => {
         el.classList.remove('active');
     });
     item.classList.add('active');
@@ -412,6 +416,8 @@ document.addEventListener('keydown', function(event) {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    document.body.classList.add('initial-header');
     const savedTheme = localStorage.getItem('theme') || 'light';
     const themeIcon = document.getElementById('theme-icon');
 
@@ -422,6 +428,19 @@ document.addEventListener('DOMContentLoaded', function() {
         document.documentElement.removeAttribute('data-theme');
         themeIcon.textContent = '🔆';
     }
+
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('#sidebar') || e.target.closest('footer')) {
+            return;
+        }
+
+        const header = document.querySelector('header');
+        if (header.classList.contains('initial-header')) {
+            header.classList.remove('initial-header');
+            header.classList.add('small-header');
+            document.body.classList.remove('initial-header');
+        }
+    });
 
     const savedSidebarState = localStorage.getItem('currentState') || 'not-collapsed';
 
