@@ -1,0 +1,97 @@
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #4895ef;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --success-color: #4cc9f0;
+    --bg-color: #f5f7fa;
+    --text-color: #212529;
+    --header-bg: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --card-bg: white;
+    --border-color: #f3f3f3;
+    --status-done-color: #28a745;
+    --status-done-background-color: rgba(40, 167, 69, 0.1);
+    --status-error-color: #ff3549;
+    --status-error-background-color: rgba(220, 53, 69, 0.1);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding-top: 100px;
+    padding-bottom: 40px;
+}
+
+[data-theme="dark"], body.dark {
+    --primary-color: #3a4bb0;
+    --secondary-color: #2d2d99;
+    --accent-color: #3a7bc8;
+    --light-color: #2d3748;
+    --dark-color: #f8f9fa;
+    --success-color: #3aa8d8;
+    --bg-color: #1a202c;
+    --text-color: #f8f9fa;
+    --card-bg: #2d3748;
+    --border-color: #3f4c66;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1),
+                background-color 0.1s,
+                color 0.1s;
+}
+
+a {
+    color: #90cdf4;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #63b3ed;
+    text-decoration: underline;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    max-width: 1200px;
+    min-width: calc(900px + 1.5rem);
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.icon {
+    user-select: none;
+}
+
+.status-done {
+    background-color: var(--status-done-background-color);
+    color: var(--status-done-color);
+}
+
+.status-error {
+    background-color: var(--status-error-background-color);
+    color: var(--status-error-color);
+}
+
+.status-waiting {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #007bff;
+}
