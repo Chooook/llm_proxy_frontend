@@ -4,8 +4,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>База знаний Службы внутреннего аудита</title>
-        <link rel="stylesheet" href="/static/css/introjs.min.css">
-        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="/static/css/base.css">
+        <link rel="stylesheet" href="/static/css/categories.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+        <link rel="stylesheet" href="/static/css/feedback.css">
+        <link rel="stylesheet" href="/static/css/footer.css">
+        <link rel="stylesheet" href="/static/css/header.css">
+        <link rel="stylesheet" href="/static/css/intro.css">
+        <link rel="stylesheet" href="/static/css/search.css">
+        <link rel="stylesheet" href="/static/css/sidebar.css">
+        <link rel="stylesheet" href="/static/css/tasks.css">
         <script src="/static/js/intro.min.js"></script>
         <script src="/static/js/showdown.min.js"></script>
     </head>
@@ -13,7 +21,7 @@
     <script src="/static/js/tutorial.js"></script>
 
     <body>
-        <header>
+        <header class="initial-header">
             <div class="header-container">
                 <div class="header-logo"><img src="static/images/logo.png"></div>
                 <div class="header-text-container">
@@ -44,10 +52,12 @@
             -->
             <div id="sidebar-content"></div>
         </div>
+
         <div id="base-container">
-            <div class="container main-content">
-                <div class="backend-demo">
-                    <div class="backend-demo-header">
+
+            <div class="container">
+                <div class="main-content-wrapper">
+                    <div class="main-content-header">
                         <h1>Поиск по базе знаний</h1>
                         <div class="task-type-selector">
                             <select id="taskType">
@@ -64,7 +74,7 @@
                             <textarea id="inputParam" placeholder="Что вас интересует?" autofocus
                                       oninput="autoResize(this)"></textarea>
                         </div>
-                        <button class="backend-btn" onclick="startTask()">🔍️</button>
+                        <button class="enqueue-btn" onclick="startTask()">🔍️</button>
                     </div>
                     <div class="divider" id="taskDivider"></div>
                     <div id="tasks">
@@ -95,31 +105,34 @@
                 </div>
             </div>
 
-            <button class="feedback-btn" onclick="openFeedbackModal()">💬</button>
+            <div>
+                <button class="feedback-btn" onclick="openFeedbackModal()">💬</button>
 
-            <div id="modalOverlay" class="modal-overlay" onclick="closeFeedbackModal()"></div>
+                <div id="modalOverlay" class="modal-overlay" onclick="closeFeedbackModal()"></div>
 
-            <div id="feedbackModal" class="feedback-modal">
-                <h3>Обратная связь</h3>
-                <textarea id="feedbackText" placeholder="Ваше сообщение..."></textarea>
-                <input id="feedbackContact" type="text" placeholder="Ваши контакты (необязательно)">
+                <div id="feedbackModal" class="feedback-modal">
+                    <h3>Обратная связь</h3>
+                    <textarea id="feedbackText" placeholder="Ваше сообщение..."></textarea>
+                    <input id="feedbackContact" type="text" placeholder="Ваши контакты (необязательно)">
 
-                <div class="buttons">
-                    <button class="cancel" onclick="closeFeedbackModal()">Отмена</button>
-                    <button onclick="submitFeedback()">Отправить</button>
-                </div>
+                    <div class="buttons">
+                        <button class="cancel" onclick="closeFeedbackModal()">Отмена</button>
+                        <button onclick="submitFeedback()">Отправить</button>
+                    </div>
 
-                <div class="mail-link">
-                    <a href="mailto:support@example.com?subject=Обратная связь">Или напишите нам на почту</a>
+                    <div class="mail-link">
+                        <a href="mailto:support@example.com?subject=Обратная связь">Или напишите нам на почту</a>
+                    </div>
                 </div>
             </div>
+
         </div>
 
 
         <footer>
             <div class="container">
                 <p>© 2025 База знаний Службы внутреннего аудита. Все права защищены.</p>
-           </div>
+            </div>
         </footer>
     </body>
     <script src="/static/main.js"></script>
