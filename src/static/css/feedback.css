@@ -1,0 +1,114 @@
+.feedback-btn {
+    position: fixed;
+    right: 30px;
+    bottom: 70px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.feedback-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.feedback-modal {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2d3748;
+    padding: 2rem;
+    border-radius: 8px;
+    z-index: 1001;
+    width: 80%;
+    max-width: 1200px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
+}
+
+.feedback-modal h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.feedback-modal textarea {
+    width: 100%;
+    min-height: 150px;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #4a5568;
+    background: #1a202c;
+    color: white;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.feedback-modal input {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #4a5568;
+    background: #1a202c;
+    color: white;
+}
+
+.feedback-modal .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.feedback-modal button {
+    background: #4299e1;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.feedback-modal button:hover {
+    background: #3182ce;
+}
+
+.feedback-modal button.cancel {
+    background: #718096;
+}
+
+.feedback-modal button.cancel:hover {
+    background: #4a5568;
+}
+
+.feedback-modal .mail-link {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
