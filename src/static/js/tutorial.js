@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
       removeTips();
     } else {
       showTips();
+      overlay.addEventListener('click', removeTips);
     }
   });
 });
