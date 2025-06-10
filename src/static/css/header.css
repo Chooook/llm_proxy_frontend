@@ -13,6 +13,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
 }
 
 .header-container {
@@ -48,50 +49,6 @@ header.initial-header {
 
 header.initial-header .header-logo img {
     height: 120px;
-    transition: all 0.5s ease;
-}
-
-header.initial-header .logo-text {
-    font-size: 2.4rem;
-    transition: all 0.5s ease;
-}
-
-header.initial-header .tagline {
-    font-size: 1.8rem;
-    transition: all 0.5s ease;
-}
-
-header.initial-header .theme-toggle,
-header.initial-header .intro-btn {
-    width: 64px;
-    height: 64px;
-    font-size: 2.4rem;
-    transition: all 0.5s ease;
-}
-
-header.initial-header .theme-toggle {
-    top: 25%;
-}
-
-header.initial-header .intro-btn {
-    top: 75%;
-}
-
-body.header-expanded {
-    padding-top: 200px;
-    transition: padding-top 0.5s ease;
-}
-
-header {
-    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
-}
-
-header.initial-header {
-    height: 200px;
-}
-
-header.initial-header .header-logo img {
-    height: 120px;
     transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
 }
 
@@ -107,18 +64,10 @@ header.initial-header .tagline {
 
 header.initial-header .theme-toggle,
 header.initial-header .intro-btn {
-    width: 64px;
-    height: 64px;
-    font-size: 2.4rem;
+    width: 48px;
+    height: 48px;
+    font-size: 1.8rem;
     transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
-}
-
-header.initial-header .theme-toggle {
-    top: 25%;
-}
-
-header.initial-header .intro-btn {
-    top: 75%;
 }
 
 body.initial-header {
@@ -142,27 +91,11 @@ header.small-header .header-logo img {
     height: 60px;
 }
 
-header.small-header .logo-text {
-    font-size: 1.2rem;
-}
-
-header.small-header .tagline {
-    font-size: 0.9rem;
-}
-
 header.small-header .theme-toggle,
 header.small-header .intro-btn {
     width: 32px;
     height: 32px;
     font-size: 1.2rem;
-}
-
-header.small-header .theme-toggle {
-    top: 30%;
-}
-
-header.small-header .intro-btn {
-    top: 70%;
 }
 
 .logo-text {
