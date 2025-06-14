@@ -8,7 +8,7 @@ let BACKEND_URL;
 const taskTypeNames = {
     'generate_pm': 'Помощник ЦК PM',
     'generate_spc': 'Помощник ЦК СПК',
-    'generate_oapso': 'Помощник ОАПСО',
+    // 'generate_oapso': 'Помощник ОАПСО',
     'generate_local': 'Локальная генерация',
     'dummy': 'Перемешать буквы'
 };
