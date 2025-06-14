@@ -203,7 +203,7 @@ function updateSidebarItemsVisibility() {
     });
 }
 
-function updateStatus(taskId, status, result = '') {
+function updateStatus(taskId, status, result) {
     const el = document.getElementById(`${taskId}`);
     if (el) {
         const statusEl = el.querySelector('.status');
@@ -230,7 +230,13 @@ function updateStatus(taskId, status, result = '') {
             statusEl.classList.add('status-error');
             if (loadingGif) loadingGif.remove();
         }
-        const result_md = converter.makeHtml(result.trim());
+        let resultText = result.text
+        // TODO: Добавить обработку relevant_docs
+        const relevantDocs = result.relevant_docs;
+        for (let doc in relevantDocs) {
+            resultText += `<div class="relevant-doc">${doc}: ${relevantDocs[doc]}</div>`;
+        }
+        const result_md = converter.makeHtml(resultText.trim());
 
         if (result) {
             try {
@@ -503,6 +509,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         tasks.forEach(task => {
             try {
+                task = JSON.parse(task);
                 const taskId = task['task_id'];
                 addTaskToUI(task);
 
@@ -540,6 +547,6 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => {
         console.error('Error loading tasks:', error);
         document.getElementById('emptyState').style.display = 'block';
-        location.reload();
+        window.alert('Ошибка загрузки задач,  попробуйте перезагрузить страницу');
     });
 });
