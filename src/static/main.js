@@ -12,8 +12,6 @@ const taskTypeNames = {
     'generate_local': 'Локальная генерация',
     'dummy': 'Перемешать буквы'
 };
-// TODO: генерировать типы из этой переменной, получать можно с backend (добавить endpoint, который читает конфиг)
-// TODO: вытащить все что выполняется при инициализации в отдельные функции и в отдельный модуль
 
 function autoLogin() {
   try {
@@ -231,7 +229,7 @@ function updateStatus(taskId, status, result) {
             if (loadingGif) loadingGif.remove();
         }
         let resultText = result.text
-        // TODO: Добавить обработку relevant_docs
+
         const relevantDocs = result.relevant_docs;
         for (let doc in relevantDocs) {
             resultText += `<div class="relevant-doc">${doc}: ${relevantDocs[doc]}</div>`;
