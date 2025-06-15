@@ -201,13 +201,32 @@ function updateSidebarItemsVisibility() {
     });
 }
 
-function updateStatus(taskId, status, result) {
+function updateStatus(taskId, task) {
     const el = document.getElementById(`${taskId}`);
     if (el) {
         const statusEl = el.querySelector('.status');
         const statusText = statusEl.querySelector('.status-text');
         const resultEl = document.getElementById(`result-${taskId}`);
         const loadingGif = statusEl.querySelector('.loading-gif');
+
+        let status = task.status;
+        let queuedText
+        if (status === 'queued') {
+            let position = task.current_position;
+            if (position > 0) {
+                queuedText = `ожидание, позиция в очереди: ${position}`
+            } else {
+                queuedText = 'ожидание, запрос выполняется'
+            }
+        }
+        status = task.status === 'completed' ? 'выполнено' :
+            task.status === 'failed' ? 'ошибка' : queuedText;
+        let result
+        if (task.status === 'completed') {
+            result = task.result;
+        } else {
+            result = task.error;
+        }
 
         statusText.textContent = `Статус: ${status}`;
         statusEl.className = 'status';
@@ -245,6 +264,11 @@ function updateStatus(taskId, status, result) {
     <button class="dislike-btn" onclick="handleFeedback('${taskId}', 'dislike', this)">👎</button>
     <button class="copy-btn" onclick="fallbackCopyToClipboard('${taskId}', this)">📋</button>
 </div>`;
+                const feedback = task.feedback.feedback
+                if (feedback !== 'neutral') {
+                    const button = resultEl.querySelector(`.${feedback}-btn`);
+                    button.classList.add('active');
+                }
             } catch (e) {
                 resultEl.textContent = result;
             }
@@ -277,20 +301,15 @@ function subscribeToTask(taskId) {
         try {
             const data = JSON.parse(event.data);
             if (data.status === 'completed') {
-                updateStatus(taskId, 'выполнено', data.result);
+                updateStatus(taskId, data);
                 sidebarItem.classList.add('completed');
                 eventSource.close();
             } else if (data.status === 'failed') {
-                updateStatus(taskId, 'ошибка', data.error);
+                updateStatus(taskId, data);
                 sidebarItem.classList.add('error');
                 eventSource.close();
             } else if (data.status === 'queued') {
-                let position = data.current_position;
-                if (position > 0) {
-                    updateStatus(taskId, `ожидание, позиция в очереди: ${position}`, data.result);
-                } else {
-                    updateStatus(taskId, 'ожидание, запрос выполняется', data.result);
-                }
+                updateStatus(taskId, data)
             }
         } catch (e) {
             console.error("Ошибка парсинга:", e);
@@ -334,32 +353,23 @@ function toggleSidebar() {
 }
 
 function handleFeedback(taskId, type, button) {
-    const parent = button.parentElement;
-    [...parent.children].forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
-
-    // При желании можно отправить feedback на backend:
-   /*
     fetch(`${BACKEND_URL}/api/v1/feedback/${taskId}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ task_id: taskId, feedback: type })
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+        body: JSON.stringify({ feedback: type })
+    }).then(response => {
+        if (response.ok) {
+            console.log(`Поставлен "${type}" задаче ${taskId}`);
+            const parent = button.parentElement;
+            [...parent.children].forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        } else {
+            console.error(`Ошибка при отправке оценки для задачи ${taskId}`);
+        }
+    }).catch(error => {
+        console.error(`Ошибка при отправке оценки для задачи ${taskId}: ${error}`);
     });
-    */
-}
-
-function copyToClipboard(taskId, button) {
-    const resultEl = document.querySelector(`#result-${taskId} .result-text`);
-    navigator.clipboard.writeText(resultEl.textContent)
-        .then(() => {
-            button.textContent = '✅';
-            setTimeout(() => {
-                button.textContent = '📋';
-            }, 1500);
-        })
-        .catch(err => {
-            console.error('Ошибка копирования:', err);
-        });
 }
 
 function fallbackCopyToClipboard(taskId, button) {
@@ -528,13 +538,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 const status = task.status === 'completed' ? 'выполнено' :
                     task.status === 'failed' ? 'ошибка' : queuedText;
-                let result
-                if (task.status === 'completed') {
-                    result = task.result;
-                } else {
-                    result = task.error;
-                }
-                updateStatus(taskId, status, result);
+                updateStatus(taskId, task);
 
                 const sidebarItem = document.querySelector(`.sidebar-item[data-item-number="${taskId}"]`);
                 if (status === 'выполнено') sidebarItem.classList.add('completed');
