@@ -214,7 +214,7 @@ function updateStatus(taskId, status, result) {
         statusText.textContent = `Статус: ${status}`;
         statusEl.className = 'status';
 
-        if (status === 'ожидание') {
+        if (status.startsWith('ожидание')) {
             statusEl.classList.add('status-waiting');
             if (!loadingGif) {
                 const gif = document.createElement('img');
@@ -238,7 +238,7 @@ function updateStatus(taskId, status, result) {
         }
         const result_md = converter.makeHtml(resultText.trim());
 
-        if (result) {
+        if (result_md.trim() !== '') {
             try {
                 resultEl.innerHTML = `
 <div class="result-text">${result_md}</div>
@@ -286,6 +286,13 @@ function subscribeToTask(taskId) {
                 updateStatus(taskId, 'ошибка', data.error);
                 sidebarItem.classList.add('error');
                 eventSource.close();
+            } else if (data.status === 'queued') {
+                let position = data.current_position;
+                if (position > 0) {
+                    updateStatus(taskId, `ожидание, позиция в очереди: ${position}`, data.result);
+                } else {
+                    updateStatus(taskId, 'ожидание, запрос выполняется', data.result);
+                }
             }
         } catch (e) {
             console.error("Ошибка парсинга:", e);
@@ -514,9 +521,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 addTaskToUI(task);
 
                 lastAddedItem = document.querySelector(`.sidebar-item[data-item-number="${taskId}"]`);
-
+                const position = task.current_position
+                let queuedText = ''
+                if (position > 0) {
+                    queuedText = `ожидание, позиция в очереди: ${position}`
+                } else {
+                    queuedText = 'ожидание, запрос выполняется'
+                }
                 const status = task.status === 'completed' ? 'выполнено' :
-                    task.status === 'failed' ? 'ошибка' : 'ожидание';
+                    task.status === 'failed' ? 'ошибка' : queuedText;
                 let result
                 if (task.status === 'completed') {
                     result = task.result;
@@ -529,7 +542,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (status === 'выполнено') sidebarItem.classList.add('completed');
                 if (status === 'ошибка') sidebarItem.classList.add('error');
 
-                if (status === 'ожидание') subscribeToTask(taskId);
+                if (status.startsWith('ожидание')) subscribeToTask(taskId);
             } catch (e) {
                 console.error('Error loading task:', e);
             }
