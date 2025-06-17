@@ -95,3 +95,7 @@ a:hover {
     background-color: rgba(0, 123, 255, 0.1);
     color: #007bff;
 }
+
+tr {
+    text-align: left;
+}
