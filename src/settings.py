@@ -1,16 +1,31 @@
-from pydantic_settings import BaseSettings
+from pathlib import Path
+from typing import Tuple, Type
+
+from pydantic_settings import (BaseSettings, PydanticBaseSettingsSource,
+                               SettingsConfigDict, YamlConfigSettingsSource)
 
 
 class Settings(BaseSettings):
-    LOGLEVEL: str = 'DEBUG'
-    DEBUG: bool = True
-    HOST: str = '127.0.0.1'
-    BACKEND_PORT: int = 8000
-    FRONTEND_PORT: int = 5000
+    model_config = SettingsConfigDict(
+        yaml_file=Path(__file__).parent.parent / 'config.yaml')
 
-    class Config:
-        env_file = '../.env'
-        env_file_encoding = 'utf-8'
-        case_sensitive = True
+    LOGLEVEL: str
+    DEBUG: bool
+
+    HOST: str
+    BACKEND_PORT: int
+    FRONTEND_PORT: int
+    LOG_TO_FILES: bool
+
+    @classmethod
+    def settings_customise_sources(
+        cls,
+        settings_cls: Type[BaseSettings],
+        init_settings: PydanticBaseSettingsSource,
+        env_settings: PydanticBaseSettingsSource,
+        dotenv_settings: PydanticBaseSettingsSource,
+        file_secret_settings: PydanticBaseSettingsSource,
+    ) -> Tuple[PydanticBaseSettingsSource, ...]:
+        return (YamlConfigSettingsSource(settings_cls),)
 
 settings = Settings()
