@@ -13,53 +13,10 @@ const taskTypeNames = {
     'dummy': 'Перемешать буквы'
 };
 
-function autoLogin() {
-  try {
-    return fetch('/config').then(res => res.json()).then(config => {
-        BACKEND_URL = config['BACKEND_URL'];
-    })
-    .then(() => {
-        return fetch(`${BACKEND_URL}/`, {
-            credentials: 'include'
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-          console.log('Автоматический вход выполнен');
-        } else {
-          console.error('Ошибка авто-логина');
-        }
-    })
-  } catch (err) {
-    console.error('Ошибка сети:', err);
-  }
-}
-autoLogin().then(() => {})
-
 const sidebar = document.getElementById('sidebar');
 const sidebarContent = document.getElementById('sidebar-content');
 const baseContainer = document.getElementById('base-container');
-
-document.addEventListener('DOMContentLoaded', function() {
-    const toggleBtn = document.getElementById('toggle-btn');
-
-    toggleBtn.addEventListener('click', function () {
-        toggleSidebar();
-    });
-});
-
 const textarea = document.getElementById("inputParam");
-textarea.addEventListener(
-    'keydown', function(event) {
-        if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault();
-            setTimeout(() => {
-                textarea.value = textarea.value.replace(/\n$/, "");
-            }, 0);
-            startTask();
-        }
-    }
-);
 
 function startTask() {
     const inputText = document.getElementById('inputParam');
@@ -259,6 +216,7 @@ function updateStatus(taskId, task) {
             try {
                 resultEl.innerHTML = `
 <div class="result-text">${result_md}</div>
+<div class="result-raw-text" style="display: none">${resultText.trim()}</div>
 <div class="result-actions">
     <button class="like-btn" onclick="handleFeedback('${taskId}', 'like', this)">👍</button>
     <button class="dislike-btn" onclick="handleFeedback('${taskId}', 'dislike', this)">👎</button>
@@ -373,7 +331,7 @@ function handleFeedback(taskId, type, button) {
 }
 
 function fallbackCopyToClipboard(taskId, button) {
-    const text = document.querySelector(`#result-${taskId} .result-text`).textContent;
+    const text = document.querySelector(`#result-${taskId} .result-raw-text`).textContent;
     let textArea = document.createElement("textarea");
     textArea.value = text;
 
@@ -447,8 +405,6 @@ async function submitFeedback() {
             closeFeedbackModal();
             document.getElementById('feedbackText').value = '';
             document.getElementById('feedbackContact').value = '';
-        } else {
-            throw new Error('Ошибка при отправке');
         }
     } catch (error) {
         alert('Произошла ошибка при отправке. Попробуйте позже или напишите нам на почту.');
@@ -456,13 +412,36 @@ async function submitFeedback() {
     }
 }
 
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeFeedbackModal();
-    }
-});
+
 
 document.addEventListener('DOMContentLoaded', function() {
+    // TODO: добавить функционал подключения к endpoint /api/v1/handlers/stream.
+    //  функцию по обновлению выпадающего меню реализовать отдельно, выше.
+    //  учесть ситуации, когда хэндлеров нет совсем (добавить висящее сообщение с информацией об этом)
+    //  соответственно, не давать пользователю запускать задачи без хэндлера
+    //  подтягивать в правый сайдбар информацию о хэндлере (схема ответа в backend/schemas/handler)
+    autoResize(textarea);
+    const toggleBtn = document.getElementById('toggle-btn');
+
+    toggleBtn.addEventListener('click', function () {
+        toggleSidebar();
+    });
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeFeedbackModal();
+        }
+    });
+    textarea.addEventListener(
+        'keydown', function(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                setTimeout(() => {
+                    textarea.value = textarea.value.replace(/\n$/, "");
+                }, 0);
+                startTask();
+            }
+        }
+    );
 
     document.body.classList.add('initial-header');
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -502,9 +481,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     updateSidebarItemsVisibility();
 
+
     fetch('/config').then(res => res.json()).then(config => {
         BACKEND_URL = config['BACKEND_URL'];
         return BACKEND_URL;
+    })
+    .then(() => {
+        return fetch(`${BACKEND_URL}/`, {
+            credentials: 'include'
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+          console.log('Автоматический вход выполнен');
+        } else {
+          console.error('Ошибка авто-логина');
+        }
     })
     .then(() => {
         return fetch(`${BACKEND_URL}/api/v1/tasks`, { credentials: 'include' });
@@ -530,7 +522,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 lastAddedItem = document.querySelector(`.sidebar-item[data-item-number="${taskId}"]`);
                 const position = task.current_position
-                let queuedText = ''
+                let queuedText
                 if (position > 0) {
                     queuedText = `ожидание, позиция в очереди: ${position}`
                 } else {
@@ -560,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
     .catch(error => {
-        console.error('Error loading tasks:', error);
+        console.error('Network error:', error);
         document.getElementById('emptyState').style.display = 'block';
     });
 });
