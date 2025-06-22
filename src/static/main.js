@@ -69,7 +69,7 @@ function addTaskToUI(task) {
     <span class="task-title">Вопрос: ${task['prompt']}</span>
     <span class="task-type">Тип: ${taskTypeName}</span>
 </div>
-<div class="status status-waiting">
+<div class="status status-queued">
     <span class="status-text">Статус: ожидание</span>
     <img src="/static/loading_dog.gif" class="loading-gif" alt="Загрузка...">
 </div>
@@ -167,17 +167,31 @@ function updateStatus(taskId, task) {
         const loadingGif = statusEl.querySelector('.loading-gif');
 
         let status = task.status;
-        let queuedText
+        let statusRawText
+        let statusClass
         if (status === 'queued') {
             let position = task.current_position;
             if (position > 0) {
-                queuedText = `ожидание, позиция в очереди: ${position}`
+                statusRawText = `ожидание, позиция в очереди: ${position}`
             } else {
-                queuedText = 'ожидание, запрос выполняется'
+                statusRawText = 'ожидание, запрос выполняется'
             }
+            statusClass = 'status-queued';
+        } else if (status === 'failed') {
+            statusRawText = 'ошибка';
+            statusClass = 'status-error';
+        } else if (status === 'completed') {
+            statusRawText = 'выполнено';
+            statusClass = 'status-done';
+        } else if (status === 'running') {
+            statusRawText = 'выполняется';
+            statusClass = 'status-queued';
+        } else if (status === 'pending') {
+            statusRawText = 'приостановлено, нет запущенных обработчиков для этого типа задачи';
+            statusClass = 'status-pending';
         }
-        status = task.status === 'completed' ? 'выполнено' :
-            task.status === 'failed' ? 'ошибка' : queuedText;
+
+        status = statusRawText
         let result
         if (task.status === 'completed') {
             result = task.result;
@@ -189,7 +203,6 @@ function updateStatus(taskId, task) {
         statusEl.className = 'status';
 
         if (status.startsWith('ожидание')) {
-            statusEl.classList.add('status-waiting');
             if (!loadingGif) {
                 const gif = document.createElement('img');
                 gif.src = '/static/loading_dog.gif';
@@ -197,13 +210,10 @@ function updateStatus(taskId, task) {
                 gif.alt = 'Загрузка...';
                 statusEl.appendChild(gif);
             }
-        } else if (status === 'выполнено') {
-            statusEl.classList.add('status-done');
-            if (loadingGif) loadingGif.remove();
-        } else if (status === 'ошибка') {
-            statusEl.classList.add('status-error');
+        } else {
             if (loadingGif) loadingGif.remove();
         }
+        statusEl.classList.add(statusClass);
         let resultText = result.text
 
         const relevantDocs = result.relevant_docs;
@@ -266,7 +276,7 @@ function subscribeToTask(taskId) {
                 updateStatus(taskId, data);
                 sidebarItem.classList.add('error');
                 eventSource.close();
-            } else if (data.status === 'queued') {
+            } else {
                 updateStatus(taskId, data)
             }
         } catch (e) {
@@ -521,22 +531,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 addTaskToUI(task);
 
                 lastAddedItem = document.querySelector(`.sidebar-item[data-item-number="${taskId}"]`);
-                const position = task.current_position
-                let queuedText
-                if (position > 0) {
-                    queuedText = `ожидание, позиция в очереди: ${position}`
-                } else {
-                    queuedText = 'ожидание, запрос выполняется'
+                let statusRawText
+                if (task.status === 'queued') {
+                    let position = task.current_position;
+                    if (position > 0) {
+                        statusRawText = `ожидание, позиция в очереди: ${position}`
+                    } else {
+                        statusRawText = 'ожидание, запрос выполняется'
+                    }
+                } else if (task.status === 'failed') {
+                    statusRawText = 'ошибка';
+                } else if (task.status === 'completed') {
+                    statusRawText = 'выполнено';
+                } else if (task.status === 'running') {
+                    statusRawText = 'выполняется';
+                } else if (task.status === 'pending') {
+                    statusRawText = 'приостановлено, нет запущенных обработчиков для этого типа задачи';
                 }
-                const status = task.status === 'completed' ? 'выполнено' :
-                    task.status === 'failed' ? 'ошибка' : queuedText;
+                let status = statusRawText
                 updateStatus(taskId, task);
 
                 const sidebarItem = document.querySelector(`.sidebar-item[data-item-number="${taskId}"]`);
-                if (status === 'выполнено') sidebarItem.classList.add('completed');
-                if (status === 'ошибка') sidebarItem.classList.add('error');
-
-                if (status.startsWith('ожидание')) subscribeToTask(taskId);
+                if (status === 'выполнено') {
+                    sidebarItem.classList.add('completed')
+                } else if (status === 'ошибка') {
+                    sidebarItem.classList.add('error')
+                } else {
+                    subscribeToTask(taskId);
+                }
             } catch (e) {
                 console.error('Error loading task:', e);
             }
