@@ -91,9 +91,14 @@ a:hover {
     color: var(--status-error-color);
 }
 
-.status-waiting {
+.status-queued {
     background-color: rgba(0, 123, 255, 0.1);
     color: #007bff;
+}
+
+.status-pending {
+    background-color: rgba(102, 0, 255, 0.1);
+    color: #ff00e3;
 }
 
 tr {
