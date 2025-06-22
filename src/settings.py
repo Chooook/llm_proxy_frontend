@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     HOST: str
     BACKEND_PORT: int
     FRONTEND_PORT: int
-    LOG_TO_FILES: bool
+    LOG_TO_FILE: bool
 
     @classmethod
     def settings_customise_sources(

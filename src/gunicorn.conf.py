@@ -2,7 +2,7 @@ import os
 
 from settings import settings
 
-if settings.LOG_TO_FILES:
+if settings.LOG_TO_FILE:
     log_filename = 'gunicorn.log'
     accesslog = log_filename
     errorlog = log_filename
