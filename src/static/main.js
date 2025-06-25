@@ -4,7 +4,8 @@
     simplifiedAutoLink: true
 });
 let BACKEND_URL;
-
+// TODO: хранить типы задач в localstorage или постоянно в redis и не удалять полностью,
+//  чтобы всегда было описание ассистента и человеческое имя для фронта
 const taskTypeNames = {
     'generate_pm': 'Помощник ЦК PM',
     'generate_spc': 'Помощник ЦК СПК',
