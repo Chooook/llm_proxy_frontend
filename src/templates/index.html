@@ -14,8 +14,10 @@
         <link rel="stylesheet" href="/static/css/search.css">
         <link rel="stylesheet" href="/static/css/sidebar.css">
         <link rel="stylesheet" href="/static/css/tasks.css">
+
         <script src="/static/js/intro.min.js"></script>
         <script src="/static/js/showdown.min.js"></script>
+        <script src="/static/js/variables.js"></script>
     </head>
 
     <script src="/static/js/tutorial.js"></script>
@@ -45,7 +47,7 @@
         <div id="sidebar">
             <div id="sidebar-header">
                 <span class="sidebar-text">Ваши вопросы</span>
-                <button data-tooltip="Нажмите, чтобы свернуть/развернуть боковую панель" id="toggle-btn">☰</button>
+                <button data-tooltip="Нажмите, чтобы свернуть/развернуть боковую панель" id="left-sidebar-toggle-btn">☰</button>
             </div>
             <!--
             <button id="add-item-btn" class="sidebar-text" title="Добавить элемент">+</button>
@@ -59,14 +61,9 @@
                 <div class="main-content-wrapper">
                     <div class="main-content-header">
                         <h1>Поиск по базе знаний</h1>
-                        <div class="task-type-selector">
-                            <select id="taskType">
-                                <option value="generate_pm">Помощник ЦК PM</option>
-                                <option value="generate_spc">Помощник ЦК СПК</option>
-{#                                <option value="generate_oapso">Помощник ОАПСО</option>#}
-                                <option value="generate_local">Локальная генерация</option>
-                                <option value="dummy">Перемешать буквы</option>
-                            </select>
+                        <div id="status" style="font-style: italic;"></div>
+                        <div class="handler-select-container">
+                            <select id="handler-select" style="width: 300px; padding: 8px;"></select>
                         </div>
                     </div>
                     <div data-tooltip="Тут вы можете ввести свой вопрос, а для отправки нажать Enter или 🔍️"
@@ -136,5 +133,11 @@
             </div>
         </footer>
     </body>
-    <script src="/static/main.js"></script>
+
+    <script src="/static/js/dom_variables.js" defer></script>
+    <script src="/static/js/theme.js" defer></script>
+    <script src="/static/js/left_sidebar.js" defer></script>
+    <script src="/static/js/search_block.js" defer></script>
+    <script src="/static/js/feedback.js" defer></script>defer
+    <script src="/static/js/main.js" defer></script>
 </html>
