@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, render_template
 
 from settings import settings
 
@@ -9,9 +9,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
-
-
-@app.route('/config')
-def get_config():
-    return jsonify({'BACKEND_URL': BACKEND_URL})
+    return render_template('index.html', backend_url=BACKEND_URL)
