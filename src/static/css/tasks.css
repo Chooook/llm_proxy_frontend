@@ -86,7 +86,7 @@
     margin-top: 10px;
 }
 
-#toggle-btn {
+#left-sidebar-toggle-btn {
     height: 30px;
     display: flex;
     text-align: center;
@@ -103,7 +103,7 @@
     aspect-ratio: 1/1;
 }
 
-#toggle-btn:hover {
+#left-sidebar-toggle-btn:hover {
     background-color: var(--border-color);
     aspect-ratio: 1/1;
 }
