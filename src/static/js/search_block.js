@@ -248,7 +248,7 @@ function updateHandlers(handlersData) {
     }
 
     const defaultOption = document.createElement('option');
-    defaultOption.value = '';
+    defaultOption.value = 'default';
     defaultOption.textContent = 'Select handler';
     defaultOption.disabled = true;
     defaultOption.selected = true;
@@ -288,7 +288,8 @@ function updateLocalStorageHandlers(newData) {
     for (const [key, value] of Object.entries(newData)) {
         updatedData[key] = value;
     }
-    localStorage.setItem('myStorageKey', JSON.stringify(updatedData));
+    localStorage.setItem('handlersConfigs', JSON.stringify(updatedData));
+    handlersConfigs = updatedData
 }
 
 document.addEventListener('DOMContentLoaded', () => {
