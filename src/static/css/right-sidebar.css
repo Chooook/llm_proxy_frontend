@@ -1,155 +1,124 @@
- #right-sidebar {
-        position: fixed;
-        top: calc(100vh - 100px);
-        width: 250px;
-        background-color: var(--card-bg);
-        color: var(--text-color);
-        overflow: hidden;
-        border-left: 1px solid var(--border-color);
-        height: calc(100vh);
-        right: -170px;
-        z-index: 900;
-        transition: right 0.3s ease;
-    }
+#right-sidebar {
+    width: 250px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    overflow: hidden;
+    border-left: 1px solid var(--border-color);
+    height: calc(100vh - 100px);
+    position: fixed;
+    top: 100px;
+    right: 0;
+    z-index: 900;
+}
 
-    #right-sidebar.open {
-        right: 0;
-    }
+#right-sidebar.collapsed {
+    width: 80px;
+}
 
-    #right-sidebar-header {
-        height: 60px;
-        padding: 15px 15px 15px 80px;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        background-color: var(--light-color);
-        border-bottom: 1px solid var(--border-color);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+#right-sidebar-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--light-color);
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+    overflow: hidden;  # TODO перенести в текстовый элемент
+    text-overflow: ellipsis;  # TODO перенести в текстовый элемент
+}
 
-    #right-sidebar.collapsed {
-        width: 80px;
-    }
+#right-sidebar.collapsed #right-sidebar-header {
+    justify-content: center;
+}
 
-    #right-sidebar.collapsed #right-sidebar-header {
-        justify-content: center;
-        padding-left: 15px;
-    }
+#right-sidebar-content {
+    padding: 10px;
+    overflow-y: auto;
+    max-height: calc(100% - 80px);
+}
 
-    #right-sidebar-content {
-        padding: 10px;
-        overflow-y: auto;
-        max-height: calc(100% - 140px);
-        margin-left: 60px;
-    }
+#right-toggle-btn {
+    height: 30px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+}
 
-    .open-right-sidebar-btn {
-        position: absolute;
-        left: 0;
-        top: 100px;
-        width: 80px;
-        height: 60px;
-        z-index: 900;
-        background-color: var(--light-color);
-        color: var(--text-color);
-        border: 1px solid var(--light-color);
-        border-right: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        padding: 0;
-        border-radius: 10px 0 0 10px;
-    }
+#right-toggle-btn:hover {
+    background-color: var(--border-color);
+    aspect-ratio: 1/1;
+}
 
-    .open-right-sidebar-btn:hover {
-        background-color: var(--light-color);
-    }
+.right-sidebar-text {
+    margin-right: 5px;
+}
 
-    .right-sidebar-item {
-        padding: 10px;
-        margin-bottom: 5px;
-        background-color: var(--light-color);
-        border-radius: 100px;
-        cursor: pointer;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        border-left: 3px solid transparent;
-    }
+.collapsed .right-sidebar-text {
+    display: none;
+}
 
-    .right-sidebar-item:hover {
-        background-color: var(--border-color);
-        border-left: px solid var(--accent-color);
-    }
+.handler-info {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: var(--light-color);
+    border-radius: 10px;
+}
 
-    .right-sidebar-text {
-        margin: 10px 0;
-        color: var(--text-color);
-    }
+.handler-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--accent-color);
+}
 
-    .right-sidebar-item:hover {
-        background-color: var(--border-color);
-        border-right: 3px solid var(--accent-color);
-    }
+.handler-description {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
 
-    .current-mode {
-        font-weight: bold;
-        color: var(--accent-color);
-        margin: 10px 0;
-        padding: 8px;
-        background-color: var(--light-color);
-        border-radius: 20px;
-        text-align: center;
-    }
+.handler-description:empty {
+    display: none;
+}
 
-    .handler-info {
-        margin-top: 15px;
-        padding: 10px;
-        background-color: var(--light-color);
-        border-radius: 10px;
-    }
+.handler-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+}
 
-    .handler-name {
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: var(--accent-color);
-    }
+.handler-version {
+    color: var(--text-color);
+}
 
-    .handler-description {
-        font-size: 0.9em;
-        margin-bottom: 5px;
-        color: var(--text-color);
-    }
+.handler-version::before {
+    content: "Версия: ";
+}
 
-    .handler-meta {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.8em;
-        color: var(--secondary-color);
-    }
+.handler-workers::before {
+    content: "Доступно: ";
+}
 
-    .handler-version::before {
-        content: "Версия: ";
-    }
+.handler-workers.available {
+    color: var(--status-done-color);
+}
 
-    .handler-workers::before {
-        content: "Доступно: ";
-    }
+.handler-workers.unavailable {
+    color: var(--status-error-color);
+}
 
-    .handler-workers.available {
-        color: var(--status-done-color);
-    }
-
-    .handler-workers.unavailable {
-        color: var(--status-done-color);
-    }
-
-    .handler-warning {
-        color: var(--status-done-color);
-        font-size: 0.9em;
-        margin-top: 10px;
-    }
+.handler-warning {
+    color: var(--status-done-color);
+    font-size: 0.9em;
+    margin-top: 10px;
+}
