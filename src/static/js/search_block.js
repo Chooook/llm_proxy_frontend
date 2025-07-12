@@ -1,7 +1,6 @@
 function startTask() {
     const inputText = document.getElementById('inputParam');
     const questionText = inputText.value;
-    const handlerSelect = document.getElementById('handler-select').value;
 
     if (!questionText.trim()) {
         alert('Пожалуйста, введите вопрос');
@@ -13,7 +12,7 @@ function startTask() {
 
     let task = {
         prompt: questionText,
-        handler_id: handlerSelect
+        handler_id: handlerSelect.value
     };
 
     fetch(`${BACKEND_URL}/api/v1/enqueue`, {
@@ -239,7 +238,7 @@ function fallbackCopyToClipboard(taskId, button) {
 
 function updateHandlers(handlersData) {
     // TODO обновить подписи типов существующих задач, грузить список обработчиков до загрузки задач
-    const availableHandlers = handlersData.available_handlers;
+    availableHandlers = handlersData.available_handlers;
     const newHandlersConfigs = handlersData.configs;
     updateLocalStorageHandlers(newHandlersConfigs)
 

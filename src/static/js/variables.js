@@ -4,3 +4,4 @@ const converter = new showdown.Converter({
     simplifiedAutoLink: true
 });
 let handlersConfigs = JSON.parse(localStorage.getItem('handlersConfigs' || '{}'))
+let availableHandlers = {}
