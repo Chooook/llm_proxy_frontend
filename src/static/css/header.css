@@ -42,45 +42,45 @@ header {
     margin-bottom: 0.5rem;
 }
 
-header.initial-header {
-    height: 200px;
-    transition: all 0.5s ease;
-}
+/*header.initial-header {*/
+/*    height: 200px;*/
+/*    transition: all 0.5s ease;*/
+/*}*/
 
-header.initial-header .header-logo img {
-    height: 120px;
-    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
-}
+/*header.initial-header .header-logo img {*/
+/*    height: 120px;*/
+/*    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);*/
+/*}*/
 
-header.initial-header .logo-text {
-    font-size: 1.9rem;
-    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
-}
+/*header.initial-header .logo-text {*/
+/*    font-size: 1.9rem;*/
+/*    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);*/
+/*}*/
 
-header.initial-header .tagline {
-    font-size: 1.3rem;
-    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
-}
+/*header.initial-header .tagline {*/
+/*    font-size: 1.3rem;*/
+/*    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);*/
+/*}*/
 
-header.initial-header .theme-toggle,
-header.initial-header .intro-btn {
-    width: 48px;
-    height: 48px;
-    font-size: 1.8rem;
-    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
-}
+/*header.initial-header .theme-toggle,*/
+/*header.initial-header .intro-btn {*/
+/*    width: 48px;*/
+/*    height: 48px;*/
+/*    font-size: 1.8rem;*/
+/*    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);*/
+/*}*/
 
-body.initial-header {
-    padding-top: 200px;
-    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
-}
+/*body.initial-header {*/
+/*    padding-top: 200px;*/
+/*    transition: all 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);*/
+/*}*/
 
-body.initial-header #sidebar {
-    top: 200px;
-    height: calc(100vh - 200px);
-    transition: top 0.3s cubic-bezier(0.68, -0.3, 0.5, 1),
-                height 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);
-}
+/*body.initial-header #sidebar {*/
+/*    top: 200px;*/
+/*    height: calc(100vh - 200px);*/
+/*    transition: top 0.3s cubic-bezier(0.68, -0.3, 0.5, 1),*/
+/*                height 0.3s cubic-bezier(0.68, -0.3, 0.5, 1);*/
+/*}*/
 
 header.small-header {
     height: 100px;
