@@ -23,17 +23,60 @@
     background-color: var(--light-color);
     border-bottom: 1px solid var(--border-color);
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: hidden;  # TODO перенести в текстовый элемент
+    text-overflow: ellipsis;  # TODO перенести в текстовый элемент
 }
+
+.collapsed .sidebar-text {  # TODO выделить collapsed варианты в отдельные файлы
+    display: none;
+}
+
 #sidebar.collapsed #sidebar-header {
     justify-content: center;
+}
+
+#left-sidebar-toggle-btn {
+    height: 30px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+}
+
+#left-sidebar-toggle-btn:hover {
+    background-color: var(--border-color);
+    aspect-ratio: 1/1;
 }
 
 #sidebar-content {
     padding: 10px;
     overflow-y: auto;
     max-height: calc(100% - 80px);
+}
+
+#add-item-btn {
+    width: calc(100% - 20px);
+    margin: 10px;
+    padding: 10px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#add-item-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
 }
 
 .sidebar-item {
@@ -53,22 +96,6 @@
     border-left: 3px solid var(--accent-color);
 }
 
-#add-item-btn {
-    width: calc(100% - 20px);
-    margin: 10px;
-    padding: 10px;
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-#add-item-btn:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-2px);
-}
-
 .item-number {
     display: none;
     font-weight: bold;
@@ -77,10 +104,6 @@
 
 .collapsed .item-number {
     display: block;
-}
-
-.collapsed .sidebar-text {
-    display: none;
 }
 
 .sidebar-item {
