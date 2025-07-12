@@ -43,26 +43,30 @@
                 </div>
             </div>
         </header>
+
 		<div id="right-sidebar">
-    		<button class="open-right-sidebar-btn" onclick="toggleRightSidebar()">☰</button>
 
     		<div id="right-sidebar-header">
-       		<p class="right-sidebar-text" id="currentModeDisplay">Помощник ЦК PM</p>
-    	</div>
-    	<div id="right-sidebar-content">
-        	<div class="handler-info" id="handlerInfo">
-            	<div class="handler-description" id="handlerDescription">Основной помощник для работы с проектами и процессами</div>
-            	<div class="handler-meta">
-                	<span class="handler-version" id="handlerVersion">1.0.0</span>
-                  	<span class="handler-workers available" id="handlerWorkers">1</span>
-            	</div>
+    		    <button id="right-toggle-btn" onclick="toggleRightSidebar()">ⓘ</button>
+       		    <span class="right-sidebar-text" id="currentModeDisplay"></span>
+            </div>
+            <div id="right-sidebar-content">
+                <div class="handler-info" id="handlerInfo">
+                    <div class="handler-description" id="handlerDescription">Обработчик не выбран</div>
+                    <div class="handler-meta">
+                        <span class="handler-version" id="handlerVersion"></span>
+                        <span class="handler-workers unavailable" id="handlerWorkers"></span>
+                    </div>
         		</div>
     		</div>
 		</div>
+
         <div id="sidebar">
             <div id="sidebar-header">
                 <span class="sidebar-text">Ваши вопросы</span>
-                <button data-tooltip="Нажмите, чтобы свернуть/развернуть боковую панель" id="left-sidebar-toggle-btn">☰</button>
+                <button data-tooltip="Нажмите, чтобы свернуть/развернуть боковую панель"
+                        id="left-sidebar-toggle-btn">☰
+                </button>
             </div>
             <!--
             <button id="add-item-btn" class="sidebar-text" title="Добавить элемент">+</button>
@@ -153,7 +157,7 @@
     <script src="/static/js/theme.js" defer></script>
     <script src="/static/js/left_sidebar.js" defer></script>
     <script src="/static/js/search_block.js" defer></script>
-  	<script src="/static/js/right-sidebar.js" defer></script>
+  	<script src="/static/js/right_sidebar.js" defer></script>
     <script src="/static/js/feedback.js" defer></script>defer
     <script src="/static/js/main.js" defer></script>
 </html>
