@@ -1,12 +1,12 @@
 function toggleSidebar() {
-    const currentStateCollapsed = sidebar.classList.contains('collapsed');
+    const currentStateCollapsed = leftSidebar.classList.contains('collapsed');
 
     if (currentStateCollapsed) {
-        sidebar.classList.remove('collapsed');
+        leftSidebar.classList.remove('collapsed');
         baseContainer.classList.remove('collapsed');
         localStorage.setItem('currentState', 'not-collapsed');
     } else {
-        sidebar.classList.add('collapsed');
+        leftSidebar.classList.add('collapsed');
         baseContainer.classList.add('collapsed');
         localStorage.setItem('currentState', 'collapsed');
     }
@@ -14,7 +14,7 @@ function toggleSidebar() {
 }
 
 function updateSidebarItemsVisibility() {
-    const isCollapsed = sidebar.classList.contains('collapsed');
+    const isCollapsed = leftSidebar.classList.contains('collapsed');
     const items = document.querySelectorAll('.sidebar-item');
 
     items.forEach(item => {
@@ -66,7 +66,7 @@ function addSidebarItem(task) {
     });
     item.classList.add('active');
 
-    sidebarContent.insertBefore(item, sidebarContent.firstChild);
+    leftSidebarContent.insertBefore(item, leftSidebarContent.firstChild);
     item.scrollIntoView({behavior: "smooth", block: "nearest"});
     updateSidebarItemsVisibility();
 
@@ -81,11 +81,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const savedSidebarState = localStorage.getItem('currentState') || 'not-collapsed';
 
     if (savedSidebarState === 'collapsed') {
-        sidebar.classList.add('collapsed');
+        leftSidebar.classList.add('collapsed');
         baseContainer.classList.add('collapsed');
         localStorage.setItem('currentState', 'collapsed');
     } else {
-        sidebar.classList.remove('collapsed');
+        leftSidebar.classList.remove('collapsed');
         baseContainer.classList.remove('collapsed');
         localStorage.setItem('currentState', 'not-collapsed');
     }

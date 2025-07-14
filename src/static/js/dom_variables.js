@@ -6,6 +6,6 @@ const statusDiv = document.getElementById('status');
 const textarea = document.getElementById("inputParam");
 const emptyState = document.getElementById('emptyState');
 
-const sidebar = document.getElementById('sidebar');
-const sidebarContent = document.getElementById('sidebar-content');
+const leftSidebar = document.getElementById('left-sidebar');
+const leftSidebarContent = document.getElementById('left-sidebar-content');
 const baseContainer = document.getElementById('base-container');

@@ -12,7 +12,8 @@
         <link rel="stylesheet" href="/static/css/header.css">
         <link rel="stylesheet" href="/static/css/intro.css">
         <link rel="stylesheet" href="/static/css/search.css">
-        <link rel="stylesheet" href="/static/css/sidebar.css">
+        <link rel="stylesheet" href="/static/css/left-sidebar.css">
+        <link rel="stylesheet" href="/static/css/left-sidebar.collapsed.css">
         <link rel="stylesheet" href="/static/css/tasks.css">
 		<link rel="stylesheet" href="/static/css/right-sidebar.css">
         <script src="/static/js/intro.min.js"></script>
@@ -61,17 +62,17 @@
     		</div>
 		</div>
 
-        <div id="sidebar">
-            <div id="sidebar-header">
-                <span class="sidebar-text">Ваши вопросы</span>
+        <div id="left-sidebar">
+            <div id="left-sidebar-header">
+                <span id="left-sidebar-text">Ваши вопросы</span>
                 <button data-tooltip="Нажмите, чтобы свернуть/развернуть боковую панель"
                         id="left-sidebar-toggle-btn">☰
                 </button>
             </div>
             <!--
-            <button id="add-item-btn" class="sidebar-text" title="Добавить элемент">+</button>
+            <button id="add-item-btn" title="Добавить элемент">+</button>
             -->
-            <div id="sidebar-content"></div>
+            <div id="left-sidebar-content"></div>
         </div>
 
         <div id="base-container">
