@@ -1,0 +1,31 @@
+#left-sidebar.collapsed {
+    width: 80px;
+}
+
+.collapsed #left-sidebar-header {
+    justify-content: center;
+}
+
+.collapsed #left-sidebar-text {
+    display: none;
+}
+
+.collapsed #left-sidebar-content .sidebar-item {
+    justify-content: center;
+    padding: 10px 5px;
+}
+
+.collapsed #left-sidebar-content .item-number {
+    display: block;
+}
+
+.collapsed #add-item-btn {
+    width: 30px;
+    height: 30px;
+    margin: 10px auto;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

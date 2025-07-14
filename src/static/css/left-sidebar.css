@@ -1,4 +1,4 @@
-#sidebar {
+#left-sidebar {
     width: 250px;
     background-color: var(--card-bg);
     color: var(--text-color);
@@ -11,11 +11,7 @@
     z-index: 900;
 }
 
-#sidebar.collapsed {
-    width: 80px;
-}
-
-#sidebar-header {
+#left-sidebar-header {
     padding: 15px;
     display: flex;
     justify-content: space-between;
@@ -25,14 +21,6 @@
     white-space: nowrap;
     overflow: hidden;  # TODO перенести в текстовый элемент
     text-overflow: ellipsis;  # TODO перенести в текстовый элемент
-}
-
-.collapsed .sidebar-text {  # TODO выделить collapsed варианты в отдельные файлы
-    display: none;
-}
-
-#sidebar.collapsed #sidebar-header {
-    justify-content: center;
 }
 
 #left-sidebar-toggle-btn {
@@ -57,7 +45,7 @@
     aspect-ratio: 1/1;
 }
 
-#sidebar-content {
+#left-sidebar-content {
     padding: 10px;
     overflow-y: auto;
     max-height: calc(100% - 80px);
@@ -79,7 +67,7 @@
     transform: translateY(-2px);
 }
 
-.sidebar-item {
+#left-sidebar .sidebar-item {
     padding: 10px;
     margin-bottom: 5px;
     background-color: var(--light-color);
@@ -89,76 +77,37 @@
     overflow: hidden;
     text-overflow: ellipsis;
     border-left: 3px solid transparent;
-}
-
-.sidebar-item:hover {
-    background-color: var(--border-color);
-    border-left: 3px solid var(--accent-color);
-}
-
-.item-number {
-    display: none;
-    font-weight: bold;
-    text-align: center;
-}
-
-.collapsed .item-number {
-    display: block;
-}
-
-.sidebar-item {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
 
-.collapsed .sidebar-item {
-    justify-content: center;
-    padding: 10px 5px;
+#left-sidebar .sidebar-item:hover {
+    background-color: var(--border-color);
+    border-left: 3px solid var(--accent-color);
 }
 
-.sidebar-item .sidebar-text {
+#left-sidebar .item-number {
+    display: none;
+    font-weight: bold;
+    text-align: center;
+}
+
+#add-item-btn {
     display: block;
     margin-left: 5px;
 }
-
-.collapsed #add-item-btn {
-    width: 30px;
-    height: 30px;
-    margin: 10px auto;
-    padding: 0;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .sidebar-item.active {
     background-color: var(--accent-color);
     color: white;
     border-left-color: var(--secondary-color);
 }
 
-.sidebar-item.completed {
+#left-sidebar .sidebar-item.completed {
     border-left: 3px solid var(--status-done-color);
 }
 
-.sidebar-item.error {
+#left-sidebar .sidebar-item.error {
     border-left: 3px solid var(--status-error-color);
-}
-
-.sidebar-item .status-indicator {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-left: auto;
-}
-
-.sidebar-item.completed .status-indicator {
-    background: var(--status-done-background-color);
-}
-
-.sidebar-item.error .status-indicator {
-    background: var(--status-error-color);
 }
