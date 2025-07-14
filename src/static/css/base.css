@@ -3,8 +3,12 @@
     transition: all 0.3s;
 }
 
-#base-container.collapsed {
-    padding: 0 80px 0 80px;
+#base-container.left-sidebar-collapsed {
+    padding-left: 80px;
+}
+
+#base-container.right-sidebar-collapsed {
+    padding-right: 0px;
 }
 
 .main-content-wrapper {
@@ -27,6 +31,14 @@
     background-color: var(--light-color);
     padding: 3px 8px;
     border-radius: 12px;
+}
+
+.handler-select-container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .handler-select-container select {

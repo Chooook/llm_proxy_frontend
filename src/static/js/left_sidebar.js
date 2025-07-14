@@ -3,11 +3,11 @@ function toggleSidebar() {
 
     if (currentStateCollapsed) {
         leftSidebar.classList.remove('collapsed');
-        baseContainer.classList.remove('collapsed');
+        baseContainer.classList.remove('left-sidebar-collapsed');
         localStorage.setItem('currentState', 'not-collapsed');
     } else {
         leftSidebar.classList.add('collapsed');
-        baseContainer.classList.add('collapsed');
+        baseContainer.classList.add('left-sidebar-collapsed');
         localStorage.setItem('currentState', 'collapsed');
     }
     updateSidebarItemsVisibility();
@@ -82,11 +82,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (savedSidebarState === 'collapsed') {
         leftSidebar.classList.add('collapsed');
-        baseContainer.classList.add('collapsed');
+        baseContainer.classList.add('left-sidebar-collapsed');
         localStorage.setItem('currentState', 'collapsed');
     } else {
         leftSidebar.classList.remove('collapsed');
-        baseContainer.classList.remove('collapsed');
+        baseContainer.classList.remove('left-sidebar-collapsed');
         localStorage.setItem('currentState', 'not-collapsed');
     }
     updateSidebarItemsVisibility();

@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="/static/css/left-sidebar.collapsed.css">
         <link rel="stylesheet" href="/static/css/tasks.css">
 		<link rel="stylesheet" href="/static/css/right-sidebar.css">
+        <link rel="stylesheet" href="/static/css/right-sidebar.collapsed.css">
         <script src="/static/js/intro.min.js"></script>
         <script src="/static/js/showdown.min.js"></script>
         <script src="/static/js/variables.js"></script>
@@ -45,23 +46,6 @@
             </div>
         </header>
 
-		<div id="right-sidebar">
-
-    		<div id="right-sidebar-header">
-    		    <button id="right-toggle-btn" onclick="toggleRightSidebar()">ⓘ</button>
-       		    <span class="right-sidebar-text" id="currentModeDisplay"></span>
-            </div>
-            <div id="right-sidebar-content">
-                <div class="handler-info" id="handlerInfo">
-                    <div class="handler-description" id="handlerDescription">Обработчик не выбран</div>
-                    <div class="handler-meta">
-                        <span class="handler-version" id="handlerVersion"></span>
-                        <span class="handler-workers unavailable" id="handlerWorkers"></span>
-                    </div>
-        		</div>
-    		</div>
-		</div>
-
         <div id="left-sidebar">
             <div id="left-sidebar-header">
                 <span id="left-sidebar-text">Ваши вопросы</span>
@@ -75,7 +59,7 @@
             <div id="left-sidebar-content"></div>
         </div>
 
-        <div id="base-container">
+        <div id="base-container" class="right-sidebar-collapsed">
 
             <div class="container">
                 <div class="main-content-wrapper">
@@ -84,6 +68,7 @@
                         <div id="status" style="font-style: italic;"></div>
                         <div class="handler-select-container">
                             <select id="handler-select" style="width: 300px; padding: 8px;"></select>
+                            <button id="search-right-sidebar-toggle-btn">ⓘ</button>
                         </div>
                     </div>
                     <div data-tooltip="Тут вы можете ввести свой вопрос, а для отправки нажать Enter или 🔍️"
@@ -145,6 +130,23 @@
             </div>
 
         </div>
+
+		<div id="right-sidebar" class="collapsed">
+
+    		<div id="right-sidebar-header">
+    		    <button id="right-sidebar-toggle-btn">▶</button>
+       		    <span id="right-sidebar-text"></span>
+            </div>
+            <div id="right-sidebar-content">
+                <div class="unavailable" id="handler-info">
+                    <div id="handler-description"></div>
+                    <div id="handler-meta">
+                        <span id="handler-version"></span>
+                        <span id="handler-workers"></span>
+                    </div>
+        		</div>
+    		</div>
+		</div>
 
 
         <footer>

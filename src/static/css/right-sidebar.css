@@ -11,10 +11,6 @@
     z-index: 900;
 }
 
-#right-sidebar.collapsed {
-    width: 80px;
-}
-
 #right-sidebar-header {
     padding: 15px;
     display: flex;
@@ -27,17 +23,13 @@
     text-overflow: ellipsis;  # TODO перенести в текстовый элемент
 }
 
-#right-sidebar.collapsed #right-sidebar-header {
-    justify-content: center;
-}
-
 #right-sidebar-content {
     padding: 10px;
     overflow-y: auto;
     max-height: calc(100% - 80px);
 }
 
-#right-toggle-btn {
+#right-sidebar-toggle-btn {
     height: 30px;
     display: flex;
     text-align: center;
@@ -54,7 +46,7 @@
     aspect-ratio: 1/1;
 }
 
-#right-toggle-btn:hover {
+#right-sidebar-toggle-btn:hover {
     background-color: var(--border-color);
     aspect-ratio: 1/1;
 }
@@ -63,11 +55,7 @@
     margin-right: 5px;
 }
 
-.collapsed .right-sidebar-text {
-    display: none;
-}
-
-.handler-info {
+#handler-info {
     margin-top: 15px;
     padding: 10px;
     background-color: var(--light-color);
@@ -80,41 +68,50 @@
     color: var(--accent-color);
 }
 
-.handler-description {
+#handler-description {
     font-size: 0.9em;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     color: var(--text-color);
     margin-bottom: 10px;
 }
 
-.handler-description:empty {
+#handler-description:empty {
     display: none;
 }
 
-.handler-meta {
+#handler-meta {
     display: flex;
     justify-content: space-between;
     font-size: 0.8em;
 }
 
-.handler-version {
+#handler-version {
     color: var(--text-color);
 }
 
-.handler-version::before {
+#handler-version::before {
     content: "Версия: ";
 }
 
-.handler-workers::before {
-    content: "Доступно: ";
+#handler-workers::before {
+    content: "Доступно обработчиков: ";
 }
 
-.handler-workers.available {
+
+#handler-info.available #handler-workers {
     color: var(--status-done-color);
 }
 
-.handler-workers.unavailable {
+#handler-info.unavailable #handler-workers {
     color: var(--status-error-color);
+}
+
+#handler-info.available {
+    border-left: 3px solid var(--status-done-color);
+}
+
+#handler-info.unavailable {
+    border-left: 3px solid var(--status-error-color);
 }
 
 .handler-warning {

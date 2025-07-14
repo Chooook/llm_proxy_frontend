@@ -8,4 +8,6 @@ const emptyState = document.getElementById('emptyState');
 
 const leftSidebar = document.getElementById('left-sidebar');
 const leftSidebarContent = document.getElementById('left-sidebar-content');
+const rightSidebar = document.getElementById('right-sidebar');
+const handlerInfo = document.getElementById('handler-info');
 const baseContainer = document.getElementById('base-container');

@@ -1,48 +1,45 @@
 
 function updateHandlerInfo() {
-    const handlerInfo = handlersConfigs[handlerSelect.value];
-    const handlerNameEl = document.getElementById('currentModeDisplay');
-    const handlerDescEl = document.getElementById('handlerDescription');
-    const handlerVersionEl = document.getElementById('handlerVersion');
-    const handlerWorkersEl = document.getElementById('handlerWorkers');
+    const handlerData = handlersConfigs[handlerSelect.value];
+    const handlerNameEl = document.getElementById('right-sidebar-text');
+    const handlerDescEl = document.getElementById('handler-description');
+    const handlerVersionEl = document.getElementById('handler-version');
+    const handlerWorkersEl = document.getElementById('handler-workers');
 
-    if (!handlerInfo) {
-        handlerDescEl.textContent = '';
-        handlerVersionEl.textContent = '';
-        handlerWorkersEl.textContent = '';
-        handlerWorkersEl.className = 'handler-workers unavailable';
+    if (!handlerData) {
+        handlerNameEl.textContent = 'Обработчик не выбран';
+        handlerDescEl.textContent = 'Здесь будет отображаться описание обработчика';
+        handlerVersionEl.textContent = '0.0.0';
+        handlerWorkersEl.textContent = '0';
+        handlerInfo.className = 'unavailable';
         return;
     }
 
-    handlerNameEl.textContent = handlerInfo.name;
-    handlerDescEl.textContent = handlerInfo.description;
-    handlerVersionEl.textContent = handlerInfo.version;
+    handlerNameEl.textContent = handlerData.name;
+    handlerDescEl.textContent = handlerData.description;
+    handlerVersionEl.textContent = handlerData.version;
     handlerWorkersEl.textContent = availableHandlers[handlerSelect.value] || 0;
-    handlerWorkersEl.className = availableHandlers[handlerSelect.value] > 0 ?
-        'handler-workers available' : 'handler-workers unavailable';
+    handlerInfo.className = availableHandlers[handlerSelect.value] > 0 ?
+        'available' : 'unavailable';
 }
 
 function toggleRightSidebar() {
-    const sidebar = document.getElementById('right-sidebar');
-    sidebar.classList.toggle('collapsed');
+    rightSidebar.classList.toggle('collapsed');
+    baseContainer.classList.toggle('right-sidebar-collapsed')
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const rightToggleBtn = document.getElementById('right-toggle-btn');
-    const rightSidebar = document.getElementById('right-sidebar');
-    const baseContainer = document.getElementById('base-container');
+    updateHandlerInfo()
+    const rightToggleBtn = document.getElementById('right-sidebar-toggle-btn');
+    const searchRightToggleBtn = document.getElementById('search-right-sidebar-toggle-btn');
 
-    rightToggleBtn.addEventListener('click', function() {
-        rightSidebar.classList.toggle('right-sidebar-collapsed');
-
-        // if (rightSidebar.classList.contains('right-sidebar-collapsed')) {
-        //     baseContainer.style.marginRight = '0';
-        // } else {
-        //     baseContainer.style.marginRight = '250px';
-        // }
+    rightToggleBtn.addEventListener('click',  function () {
+        toggleRightSidebar();
+    });
+    searchRightToggleBtn.addEventListener('click',  function () {
+        toggleRightSidebar();
     });
     handlerSelect.addEventListener('change', function() {
-        // updateCurrentModeDisplay();
         updateHandlerInfo();
     });
 });

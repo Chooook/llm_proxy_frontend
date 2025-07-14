@@ -1,0 +1,11 @@
+#right-sidebar.collapsed {
+    width: 0px;
+}
+
+.collapsed #right-sidebar-text {
+    display: none;
+}
+
+.collapsed #handler-info {
+    display: none;
+}
