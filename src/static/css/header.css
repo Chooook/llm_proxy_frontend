@@ -144,3 +144,31 @@ header.small-header .intro-btn {
 .intro-btn {
     top: 70%;
 }
+.warning-header {
+    border: 2px solid var(--status-error-color);
+    display: flex;
+    border-radius: 15px;
+    padding: 10px;
+    margin-right: 250px;
+    background-color: var(--status-error-background-color);
+    cursor: help;
+    font-size: 1.1rem;
+    text-align: center;
+    align-items:center;
+    justify-content: center;
+    height: 75px;
+    max-width: 350px;
+}
+.warning-tooltip {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border: 2px solid var(--status-error-color);
+    position: absolute;
+    margin: auto;
+    background-color: var(--status-error-color);
+    padding: 5px;
+    border-radius: 15px;
+    text-align: center;
+    align-items:center;
+    justify-content: center;
+}
