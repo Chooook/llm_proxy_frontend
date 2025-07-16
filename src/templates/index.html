@@ -123,15 +123,13 @@
                 <div id="feedbackModal" class="feedback-modal">
                     <h3>Обратная связь</h3>
                     <textarea id="feedbackText" placeholder="Ваше сообщение..."></textarea>
-                    <input id="feedbackContact" type="text" placeholder="Ваши контакты (необязательно)">
+                    <input id="feedbackContact" type="text" placeholder="Ваша корпоративная почта">
 
                     <div class="buttons">
                         <button class="cancel" onclick="closeFeedbackModal()">Отмена</button>
-                        <button onclick="submitFeedback()">Отправить</button>
-                    </div>
-
-                    <div class="mail-link">
-                        <a href="mailto:support@example.com?subject=Обратная связь">Или напишите нам на почту</a>
+                            <div class="mail-link">
+                            <a href="mailto:support@example.com?subject=Обратная связь Ретривер">Или напишите нам на почту</a></div>
+                    <button onclick="submitFeedback()">Отправить</button>
                     </div>
                 </div>
             </div>
@@ -170,4 +168,5 @@
   	<script src="/static/js/right_sidebar.js" defer></script>
     <script src="/static/js/feedback.js" defer></script>defer
     <script src="/static/js/main.js" defer></script>
+	<script src="/static/js/check_browser.js" defer></script>
 </html>
