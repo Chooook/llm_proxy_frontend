@@ -139,10 +139,10 @@ function updateStatus(taskId, task) {
         statusEl.classList.add(statusClass);
         let resultText = result.text
 
-        const relevantDocs = result.relevant_docs;
-        for (let doc in relevantDocs) {
-            resultText += `<div class="relevant-doc">${doc}: ${relevantDocs[doc]}</div>`;
-        }
+//        const relevantDocs = result.relevant_docs;
+//        for (let doc in relevantDocs) {
+//            resultText += `<div class="relevant-doc">${doc}: ${relevantDocs[doc]}</div>`;
+//        }
         const result_md = converter.makeHtml(resultText.trim());
 
         if (result_md.trim() !== '') {
