@@ -98,7 +98,8 @@
     display: block;
     margin-left: 5px;
 }
-.sidebar-item.active {
+
+#left-sidebar .sidebar-item.active {
     background-color: var(--accent-color);
     color: white;
     border-left-color: var(--secondary-color);
