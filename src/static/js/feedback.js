@@ -15,6 +15,26 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+function handleTaskFeedback(taskId, type, button) {
+    fetch(`${BACKEND_URL}/api/v1/feedback/${taskId}`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+        body: JSON.stringify({ feedback: type })
+    }).then(response => {
+        if (response.ok) {
+            console.log(`Поставлен "${type}" задаче ${taskId}`);
+            const parent = button.parentElement;
+            [...parent.children].forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        } else {
+            console.error(`Ошибка при отправке оценки для задачи ${taskId}`);
+        }
+    }).catch(error => {
+        console.error(`Ошибка при отправке оценки для задачи ${taskId}: ${error}`);
+    });
+}
+
 function openFeedbackModal() {
     document.getElementById('feedbackModal').style.display = 'block';
     document.getElementById('modalOverlay').style.display = 'block';
